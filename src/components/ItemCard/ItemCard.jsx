@@ -1,16 +1,10 @@
 import React, { useContext } from "react";
 
 import ShopContext from "../../context/ShopContext";
+import { formatPrice } from "../../helpers/price";
 
 const ItemCard = props => {
   const { item } = props;
-
-  const formatPrice = number => {
-    return new Intl.NumberFormat("en-AU", {
-      style: "currency",
-      currency: "AUD"
-    }).format(number);
-  };
 
   const { itemsInCart, setItemsInCart } = useContext(ShopContext);
 

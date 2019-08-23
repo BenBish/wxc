@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 
 import ItemCard from "../../components/ItemCard/ItemCard";
 
@@ -8,7 +8,7 @@ const Shop = () => {
   const { items } = useContext(ShopContext);
 
   return (
-    <div>
+    <Fragment>
       <h1 className="lead mt-3 mb-3">Shop</h1>
       <div className="row">
         {items &&
@@ -20,7 +20,7 @@ const Shop = () => {
             );
           })}
       </div>
-    </div>
+    </Fragment>
   );
 };
 
