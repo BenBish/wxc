@@ -15,9 +15,25 @@ const ItemCard = props => {
   const { itemsInCart, setItemsInCart } = useContext(ShopContext);
 
   const addToCart = () => {
-    const newItems = itemsInCart;
+    const addedItem = {
+      qty: 1,
+      name: item.name,
+      description: item.description,
+      price: item.audPrice
+    };
 
-    setItemsInCart([...newItems, item]);
+    let itemAdded = false;
+    const newItems = itemsInCart.map(item => {
+      if (item.name !== addedItem.name) return item;
+      itemAdded = true;
+      return { ...addedItem, qty: item.qty + 1 };
+    });
+
+    if (itemAdded) {
+      setItemsInCart([...newItems]);
+    } else {
+      setItemsInCart([...newItems, addedItem]);
+    }
   };
 
   return (
