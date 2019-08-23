@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "@reach/router";
 
+import ShopContext from "../../context/ShopContext";
+
 const Header = () => {
+  const { itemsInCart } = useContext(ShopContext);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
@@ -12,7 +16,8 @@ const Header = () => {
           <ul className="navbar-nav">
             <li className="nav-item active">
               <Link to="/cart" className="btn btn-primary">
-                Cart <span className="badge badge-light">4</span>
+                Cart{" "}
+                <span className="badge badge-light">{itemsInCart.length}</span>
                 <span className="sr-only">items</span>
               </Link>
             </li>

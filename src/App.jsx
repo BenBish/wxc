@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const [items, setItems] = useState();
+  const [itemsInCart, setItemsInCart] = useState([]);
 
   useEffect(() => {
     fetch(
@@ -22,13 +23,13 @@ const App = () => {
       .then(data => {
         setItems(data);
       });
-  });
+  }, []);
 
   return (
     <div className="app">
-      <ShopContext.Provider value={{ items }}>
+      <ShopContext.Provider value={{ items, itemsInCart, setItemsInCart }}>
         <Header />
-        <div className="container">
+        <div className="container pr-md-0 pl-md-0">
           <Router>
             <Shop path="/" />
             <Cart path="/cart" />
