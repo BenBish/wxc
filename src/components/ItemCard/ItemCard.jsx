@@ -1,4 +1,6 @@
-import React, { useContext } from "react";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
+import { useContext } from "react";
 
 import ShopContext from "../../context/ShopContext";
 import { formatPrice } from "../../helpers/price";
@@ -33,29 +35,37 @@ const ItemCard = props => {
 
   return (
     <div className="card">
-      <div className="card-body">
+      <div
+        className="card-body"
+        css={css`
+          min-height: 175px;
+        `}
+      >
         <h5 className="card-title">{item.name}</h5>
         <p className="card-text">{item.description}</p>
       </div>
-      {item.stockOnHand > 0 && (
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item">
+          {item.stockOnHand >= 10 && (
             <span className="badge badge-success">In Stock</span>
-          </li>
-          <li className="list-group-item">{formatPrice(item.audPrice)}</li>
-        </ul>
-      )}
+          )}
+          {item.stockOnHand > 0 && item.stockOnHand < 10 && (
+            <span className="badge badge-warning">Low Stock</span>
+          )}
+          {item.stockOnHand === 0 && (
+            <span className="badge badge-danger">Out of Stock</span>
+          )}
+        </li>
+        <li className="list-group-item">{formatPrice(item.audPrice)}</li>
+      </ul>
       <div className="card-body">
-        {!item.stockOnHand && (
-          <button className="btn btn-danger" disabled={true}>
-            Out of stock
-          </button>
-        )}
-        {item.stockOnHand > 0 && (
-          <button className="btn btn-primary" onClick={addToCart}>
-            Add to Cart
-          </button>
-        )}
+        <button
+          className="btn btn-primary"
+          onClick={addToCart}
+          disabled={item.stockOnHand > 0 ? false : true}
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );

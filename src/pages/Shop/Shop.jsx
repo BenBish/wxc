@@ -14,7 +14,10 @@ const Shop = () => {
         {items &&
           items.map((item, index) => {
             return (
-              <div className="col-12 mb-4 col-md-4 mb-md-5" key={index}>
+              <div
+                className="col-12 mb-4 col-md-6 mb-md-5 col-lg-4"
+                key={index}
+              >
                 <ItemCard item={item} />
               </div>
             );
