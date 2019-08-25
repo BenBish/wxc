@@ -47,6 +47,7 @@ const CartContents = props => {
                   className="close"
                   aria-label="Close"
                   onClick={remove}
+                  data-id={item.id}
                 >
                   <span aria-hidden="true" data-id={item.id}>
                     &times;
