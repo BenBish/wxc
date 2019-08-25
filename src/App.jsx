@@ -42,7 +42,9 @@ const App = () => {
 
   return (
     <div className="app">
-      <ShopContext.Provider value={{ items, itemsInCart, setItemsInCart }}>
+      <ShopContext.Provider
+        value={{ items, setItems, itemsInCart, setItemsInCart }}
+      >
         <Header />
         <div
           className="container"

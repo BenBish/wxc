@@ -10,3 +10,17 @@ export const addItem = (newItem, itemsInCart) => {
   });
   return newItems;
 }
+
+export const removeItemFromStock = (item, itemCatalog) => {
+  const stockItem = {
+    id: item.id,
+    name: item.name,
+    description: item.description,
+    audPrice: item.audPrice
+  };
+  const newItems = itemCatalog.map(item => {
+    if (item.id !== stockItem.id) return item;
+    return { ...stockItem, stockOnHand: item.stockOnHand - 1 };
+  });
+  return newItems;
+};

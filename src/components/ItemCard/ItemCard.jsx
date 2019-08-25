@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 
 import ShopContext from "../../context/ShopContext";
 import { formatPrice } from "../../helpers/price";
-import { addItem } from "./logic";
+import { addItem, removeItemFromStock } from "./logic";
 
 const ItemCard = props => {
   const { item } = props;
 
-  const { itemsInCart, setItemsInCart } = useContext(ShopContext);
+  const { items, setItems, itemsInCart, setItemsInCart } = useContext(
+    ShopContext
+  );
 
   const addToCart = () => {
     const addedItem = {
@@ -18,12 +20,15 @@ const ItemCard = props => {
       price: item.audPrice
     };
 
-    const newItems = addItem(addedItem, itemsInCart);
-    if (newItems.updated) {
-      setItemsInCart([...newItems.items]);
+    const newItemsInCart = addItem(addedItem, itemsInCart);
+    if (newItemsInCart.updated) {
+      setItemsInCart([...newItemsInCart.items]);
     } else {
-      setItemsInCart([...newItems.items, addedItem]);
+      setItemsInCart([...newItemsInCart.items, addedItem]);
     }
+
+    const updatedStockItems = removeItemFromStock(item, items);
+    setItems([...updatedStockItems]);
   };
 
   return (

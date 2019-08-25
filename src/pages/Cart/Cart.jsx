@@ -12,16 +12,40 @@ import Spinner from "../../components/Spinner/Spinner";
 const Cart = () => {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [isCheckoutComplete, setIsCheckoutComplete] = useState(false);
-  const { itemsInCart, setItemsInCart } = useContext(ShopContext);
+  const { items, setItems, itemsInCart, setItemsInCart } = useContext(
+    ShopContext
+  );
+
+  const addItemsToStock = (itemId, itemCatalog) => {
+    let stockItemToRestore = itemsInCart.filter(item => {
+      return item.id === itemId;
+    });
+    const stockItem = {
+      id: stockItemToRestore[0].id,
+      name: stockItemToRestore[0].name,
+      description: stockItemToRestore[0].description,
+      audPrice: stockItemToRestore[0].price
+    };
+    const newItems = itemCatalog.map(item => {
+      if (item.id !== stockItemToRestore[0].id) return item;
+      return {
+        ...stockItem,
+        stockOnHand: item.stockOnHand + stockItemToRestore[0].qty
+      };
+    });
+    return newItems;
+  };
 
   const removeFromCart = e => {
-    const itemToBeRemoved = parseInt(e.target.dataset.id);
+    const itemId = parseInt(e.target.dataset.id);
 
-    const newItems = itemsInCart.filter(item => {
-      return item.id !== itemToBeRemoved;
+    const updatedStockItems = addItemsToStock(itemId, items);
+    setItems([...updatedStockItems]);
+
+    const newItemsRemoved = itemsInCart.filter(item => {
+      return item.id !== itemId;
     });
-
-    setItemsInCart([...newItems]);
+    setItemsInCart([...newItemsRemoved]);
   };
 
   const checkout = () => {
