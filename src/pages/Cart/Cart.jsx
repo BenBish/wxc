@@ -9,6 +9,8 @@ import NoItemsInCart from "../../components/NoItemsInCart/NoItemsInCart";
 import CheckoutComplete from "../../components/CheckoutComplete/CheckoutComplete";
 import Spinner from "../../components/Spinner/Spinner";
 
+import { addItemsToStock } from "./logic";
+
 const Cart = () => {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [isCheckoutComplete, setIsCheckoutComplete] = useState(false);
@@ -16,30 +18,10 @@ const Cart = () => {
     ShopContext
   );
 
-  const addItemsToStock = (itemId, itemCatalog) => {
-    let stockItemToRestore = itemsInCart.filter(item => {
-      return item.id === itemId;
-    });
-    const stockItem = {
-      id: stockItemToRestore[0].id,
-      name: stockItemToRestore[0].name,
-      description: stockItemToRestore[0].description,
-      audPrice: stockItemToRestore[0].price
-    };
-    const newItems = itemCatalog.map(item => {
-      if (item.id !== stockItemToRestore[0].id) return item;
-      return {
-        ...stockItem,
-        stockOnHand: item.stockOnHand + stockItemToRestore[0].qty
-      };
-    });
-    return newItems;
-  };
-
   const removeFromCart = e => {
     const itemId = parseInt(e.target.dataset.id);
 
-    const updatedStockItems = addItemsToStock(itemId, items);
+    const updatedStockItems = addItemsToStock(itemId, items, itemsInCart);
     setItems([...updatedStockItems]);
 
     const newItemsRemoved = itemsInCart.filter(item => {
