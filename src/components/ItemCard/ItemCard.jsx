@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 import ShopContext from "../../context/ShopContext";
 import { formatPrice } from "../../helpers/price";
+import { addItem } from "./logic";
 
 const ItemCard = props => {
   const { item } = props;
@@ -16,17 +17,11 @@ const ItemCard = props => {
       price: item.audPrice
     };
 
-    let itemAdded = false;
-    const newItems = itemsInCart.map(item => {
-      if (item.name !== addedItem.name) return item;
-      itemAdded = true;
-      return { ...addedItem, qty: item.qty + 1 };
-    });
-
-    if (itemAdded) {
-      setItemsInCart([...newItems]);
+    const newItems = addItem(addedItem, itemsInCart);
+    if (newItems.updated) {
+      setItemsInCart([...newItems.items]);
     } else {
-      setItemsInCart([...newItems, addedItem]);
+      setItemsInCart([...newItems.items, addedItem]);
     }
   };
 
