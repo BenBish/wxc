@@ -4,6 +4,7 @@ import { Router } from "@reach/router";
 import Header from "./components/Header/Header";
 import Shop from "./pages/Shop/Shop";
 import Cart from "./pages/Cart/Cart";
+import NoMatch from "./pages/NoMatch/NoMatch";
 
 import ShopContext from "./context/ShopContext";
 
@@ -47,6 +48,7 @@ const App = () => {
           <Router>
             <Shop path="/" />
             <Cart path="/cart" />
+            <NoMatch default />
           </Router>
         </div>
       </ShopContext.Provider>
