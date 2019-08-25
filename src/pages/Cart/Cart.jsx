@@ -1,11 +1,23 @@
-import React, { Fragment, useContext } from "react";
+/** @jsx jsx */
+import { Fragment, useContext } from "react";
+import { css, jsx } from "@emotion/core";
 import { Link } from "@reach/router";
 
 import ShopContext from "../../context/ShopContext";
 import { formatPrice, totalPrice } from "../../helpers/price";
 
 const Cart = () => {
-  const { itemsInCart } = useContext(ShopContext);
+  const { itemsInCart, setItemsInCart } = useContext(ShopContext);
+
+  const removeFromCart = e => {
+    const itemToBeRemoved = e.target.dataset.id;
+
+    const newItems = itemsInCart.filter(item => {
+      return item.name !== itemToBeRemoved;
+    });
+
+    setItemsInCart([...newItems]);
+  };
 
   return (
     <Fragment>
@@ -28,10 +40,25 @@ const Cart = () => {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Quantity</th>
-              <th scope="col">Name</th>
-              <th scope="col">Description</th>
-              <th scope="col">Price</th>
+              <th scope="col">Qty</th>
+              <th
+                scope="col"
+                css={css`
+                  @media (max-width: 575px) {
+                    width: 50%;
+                  }
+                `}
+              >
+                Name
+              </th>
+              <th scope="col" className="d-none d-sm-table-cell">
+                Description
+              </th>
+              <th scope="col">Unit Price</th>
+              <th scope="col" className="d-none d-sm-table-cell">
+                Line Total
+              </th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -40,18 +67,35 @@ const Cart = () => {
                 <tr key={index}>
                   <td>{item.qty}</td>
                   <td>{item.name}</td>
-                  <td>{item.description}</td>
+                  <td className="d-none d-sm-table-cell">{item.description}</td>
                   <td>{formatPrice(item.price)}</td>
+                  <td className="d-none d-sm-table-cell">
+                    {formatPrice(item.price * item.qty)}
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="close"
+                      aria-label="Close"
+                      onClick={removeFromCart}
+                    >
+                      <span aria-hidden="true" data-id={item.name}>
+                        &times;
+                      </span>
+                    </button>
+                  </td>
                 </tr>
               );
             })}
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan="3" className="text-right">
-                TOTAL
-              </th>
+              <th></th>
+              <th className="d-none d-sm-table-cell"></th>
+              <th className="d-none d-sm-table-cell"></th>
+              <th className="text-right">TOTAL</th>
               <th>{totalPrice(itemsInCart)}</th>
+              <th></th>
             </tr>
           </tfoot>
         </table>
