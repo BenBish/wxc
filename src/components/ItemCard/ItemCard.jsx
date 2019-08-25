@@ -38,7 +38,9 @@ const ItemCard = props => {
       <div
         className="card-body"
         css={css`
-          min-height: 175px;
+          @media (min-width: 768px) {
+            min-height: 175px;
+          }
         `}
       >
         <h5 className="card-title">{item.name}</h5>

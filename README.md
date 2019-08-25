@@ -1,4 +1,56 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Technical Implementation
+
+This was an fun project with some interesting technical considerations. The development API endpoint for the products list supplied 6 products with stock levels but without unique IDs on them. I decided to add unique IDs to the data and handle stock levels within the SPA. Products when added to the cart are removed from the stock list and when remove from the cart they are added back in. When users checkout the levels are removed *permanently* (until the next hard refresh in this test environment).
+
+Without a design I made some arbitrary decisions on presentation.
+
+If this was a production piece I would look at optimizing the Bootstrap build and improving offline performance with service workers.
+
+## Technical details
+To speed up development and bootstrap the project quickly I used Create React App and added the following:
+
+- bootstrap
+- emotion
+- reach router
+- prettier
+
+## Requirements
+
+- [x] Product page
+	- [x] Name
+	- [x] Price
+	- [x] Description
+	- [x] Add to cart button
+- [x] Cart page
+	- [x] a summary of items added to the cart
+	- [x] total price
+	- [x] checkout button
+- [x] When the user clicks on the checkout button, they should get a message confirming or declining their order
+- [x] BONUS POINTS: Add accessibility to the website
+
+### Accessibility
+
+The user can tab through the products and add items to the cart using the space or enter keys. They can tab and navigate to the cart (and back to the shop). The user can remove products and *checkout*.
+
+## Extras
+- [x] Unit tests
+- [x] Update stock levels when adding and removing items in the cart
+- [x] Handle API failures and 404s 
+- [x] Visually handle stock levels in the UI with low stock and out of stock indicators
+- [x] Visually show item number in the cart
+- [x] Mobile first, responsive SPA
+- [x] Added Polyfills so fetch works in IE11
+
+### Audits
+
+Google Lighthouse scores the SPA as follows:
+
+- 99 Performance
+- 97 Accessibility
+- 93 Best Practices
+- 100 SEO
+
+---
 
 ## Available Scripts
 
@@ -15,54 +67,3 @@ You will also see any lint errors in the console.
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
