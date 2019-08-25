@@ -15,10 +15,10 @@ const Cart = () => {
   const { itemsInCart, setItemsInCart } = useContext(ShopContext);
 
   const removeFromCart = e => {
-    const itemToBeRemoved = e.target.dataset.id;
+    const itemToBeRemoved = parseInt(e.target.dataset.id);
 
     const newItems = itemsInCart.filter(item => {
-      return item.name !== itemToBeRemoved;
+      return item.id !== itemToBeRemoved;
     });
 
     setItemsInCart([...newItems]);

@@ -11,6 +11,7 @@ const ItemCard = props => {
 
   const addToCart = () => {
     const addedItem = {
+      id: item.id,
       qty: 1,
       name: item.name,
       description: item.description,

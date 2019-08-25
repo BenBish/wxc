@@ -4,7 +4,7 @@ export const addItem = (newItem, itemsInCart) => {
     updated: false
   };
   newItems.items = itemsInCart.map(item => {
-    if (item.name !== newItem.name) return item;
+    if (item.id !== newItem.id) return item;
     newItems.updated = true;
     return { ...newItem, qty: item.qty + 1 };
   });
